@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时光小札记</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        accent: '#FFD166',
+                        purple: '#9D4EDD',
+                        neutral: '#F7FFF7',
+                        dark: '#2F2E41',
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto { content-visibility: auto; }
+            .transition-custom { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-neutral min-h-screen font-sans text-dark">
+    <!-- 顶部标题栏 -->
+    <header
+        class="bg-white shadow-sm fixed top-0 left-0 right-0 z-40 py-3 px-4 flex justify-center items-center border-b border-gray-100">
+        <h1 class="text-lg font-bold text-dark">时光小札记</h1>
+    </header>
+
+    <!-- 底部导航栏 -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-40 border-t border-gray-100">
+        <div class="flex justify-around">
+            <a href="gallery.html" class="nav-item flex">
+                <i class="fa fa-picture-o nav-icon text-gray-400"></i>
+                <span class="nav-text">首页</span>
+            </a>
+            <a href="milestones.html" class="nav-item flex">
+                <i class="fa fa-star nav-icon text-gray-400"></i>
+                <span class="nav-text">定格</span>
+            </a>
+            <a href="diary.html" class="nav-item flex">
+                <i class="fa fa-book nav-icon text-purple"></i>
+                <span class="nav-text">档案</span>
+            </a>
+            <a href="profile.html" class="nav-item flex">
+                <i class="fa fa-child nav-icon text-gray-400"></i>
+                <span class="nav-text">我的</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 py-24 pb-24">
+        <!-- 成长日记 -->
+        <section id="diary" class="mb-16">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+                <h2 class="text-2xl md:text-3xl font-bold">
+                    <i class="fa fa-book text-purple mr-3"></i>
+                    成长日记
+                </h2>
+                <div class="flex items-center space-x-4 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-64">
+                        <input type="text" id="diary-search" placeholder="搜索日记内容..."
+                            class="w-full border border-gray-300 rounded px-3 py-2 pl-10 bg-white text-dark">
+                        <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <button id="add-diary-btn"
+                        class="bg-purple hover:bg-purple/90 text-white px-4 py-2 rounded-full shadow transform hover:scale-105 transition-custom flex items-center w-full sm:w-auto justify-center">
+                        <i class="fa fa-pencil mr-2"></i>
+                        写日记
+                    </button>
+                </div>
+            </div>
+
+            <div id="diaries-container" class="space-y-6">
+                <!-- 日记项目示例 -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-custom">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg">第一次去公园</h3>
+                        <span class="text-sm text-dark/50">2023年11月5日</span>
+                    </div>
+                    <p class="text-dark/70 mb-4">
+                        午后阳光透过纱窗，洒在爬爬垫上。小宝贝扶着沙发站着，小短腿试探着往前迈，没走两步就晃悠悠扑进我怀里，软乎乎的脑袋顶着我的下巴蹭了蹭。
+                        我拿起他最爱的小黄鸭玩具，他立刻伸着小手抢过去，捏得 “嘎嘎” 响。玩了没一会儿，他又被地上滚动的皮球吸引，撅着小屁股爬过去，手指戳着皮球往前推，球滚远了就急得 “啊啊”
+                        叫，直到我把球递回他手里，才又露出满足的笑。
+                        阳光照在他细软的头发上，泛着淡淡的金色，连鼻尖上的小汗珠都亮晶晶的。这片刻的喧闹与柔软，藏着最治愈的小美好。</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-1 bg-purple/10 text-purple text-xs rounded-full">户外活动</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">4个月</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="text-dark/60 hover:text-purple transition-custom" title="编辑">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="text-dark/60 hover:text-purple transition-custom" title="删除">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-custom">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg">第一次翻身</h3>
+                        <span class="text-sm text-dark/50">2023年10月20日</span>
+                    </div>
+                    <p class="text-dark/70 mb-4">
+                        今天宝贝突然学会了从仰卧翻成俯卧！早上醒来后，我把他放在游戏垫上，他自己尝试了几次，终于成功翻了过去。翻过去后他抬起头，骄傲地看着我，好像在说"看我多棒！"。这是一个重要的里程碑，我赶紧用手机记录下了这一刻。
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-1 bg-purple/10 text-purple text-xs rounded-full">发育里程碑</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">3个月</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="text-dark/60 hover:text-purple transition-custom" title="编辑">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="text-dark/60 hover:text-purple transition-custom" title="删除">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 模态框 -->
+    <div id="modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="modal-title" class="text-xl font-bold">添加新日记</h3>
+                    <button id="close-modal" class="text-dark/50 hover:text-dark">
+                        <i class="fa fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- 日记模态框内容 -->
+                <div id="modal-content">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-dark/70 mb-1">标题</label>
+                            <input type="text" id="diary-title"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple focus:border-purple transition-custom"
+                                placeholder="输入日记标题">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-dark/70 mb-1">内容</label>
+                            <textarea id="diary-content" rows="6"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple focus:border-purple transition-custom"
+                                placeholder="记录宝贝的成长瞬间..."></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1">日期</label>
+                                <input type="date" id="diary-date"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple focus:border-purple transition-custom">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1">标签</label>
+                                <select id="diary-tag"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple focus:border-purple transition-custom">
+                                    <option value="daily">日常记录</option>
+                                    <option value="milestone">发育里程碑</option>
+                                    <option value="health">健康状况</option>
+                                    <option value="activity">户外活动</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end space-x-3">
+                    <button id="cancel-modal"
+                        class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-custom">
+                        取消
+                    </button>
+                    <button id="save-modal"
+                        class="px-4 py-2 bg-purple text-white rounded-lg hover:bg-purple/90 transition-custom">
+                        保存日记
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

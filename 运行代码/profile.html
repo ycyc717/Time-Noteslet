@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时光小札记 - 宝贝信息</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        accent: '#FFD166',
+                        purple: '#9D4EDD',
+                        blue: '#118AB2',
+                        neutral: '#F7FFF7',
+                        dark: '#2F2E41',
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto { content-visibility: auto; }
+            .transition-custom { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+            .card-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03); }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-neutral min-h-screen font-sans text-dark">
+    <!-- 顶部标题栏 -->
+    <header
+        class="bg-white shadow-sm fixed top-0 left-0 right-0 z-40 py-3 px-4 flex justify-center items-center border-b border-gray-100">
+        <h1 class="text-lg font-bold text-dark">时光小札记</h1>
+    </header>
+
+    <!-- 底部导航栏 -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-40 border-t border-gray-100">
+        <div class="flex justify-around">
+            <a href="gallery.html" class="nav-item flex">
+                <i class="fa fa-picture-o nav-icon text-gray-400"></i>
+                <span class="nav-text">首页</span>
+            </a>
+            <a href="milestones.html" class="nav-item flex">
+                <i class="fa fa-star nav-icon text-gray-400"></i>
+                <span class="nav-text">定格</span>
+            </a>
+            <a href="diary.html" class="nav-item flex">
+                <i class="fa fa-book nav-icon text-gray-400"></i>
+                <span class="nav-text">档案</span>
+            </a>
+            <a href="profile.html" class="nav-item flex">
+                <i class="fa fa-child nav-icon text-blue"></i>
+                <span class="nav-text">我的</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 py-24 pb-24">
+        <!-- 宝贝信息头部 -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+            <div class="flex items-center gap-6 mb-6 md:mb-0">
+                <div
+                    class="w-24 h-24 rounded-full bg-blue/10 flex items-center justify-center overflow-hidden border-4 border-white shadow-lg">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3233/3233937.png" alt="可爱婴儿"
+                        class="baby-avatar w-16 h-16 object-contain">
+                </div>
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold" id="p-baby-name">小宝贝</h2>
+                    <p class="text-dark/60" id="p-baby-bitrhday">2023年10月15日</p>
+                </div>
+            </div>
+            <button id="edit-profile-btn"
+                class="bg-blue hover:bg-blue/90 text-white px-4 py-2 rounded-full shadow transform hover:scale-105 transition-custom flex items-center">
+                <i class="fa fa-edit mr-2"></i>
+                编辑资料
+            </button>
+        </div>
+
+        <!-- 宝贝信息卡片 -->
+        <div id="profile-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <!-- 基本信息 -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 card-shadow">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fa fa-id-card text-blue mr-2"></i>
+                    基本信息
+                </h3>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">姓名</div>
+                        <div class="col-span-2" id="profile-baby-name">小宝贝</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">性别</div>
+                        <div class="col-span-2" id="profile-baby-gender">男</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">出生日期</div>
+                        <div class="col-span-2" id="profile-baby-birthday">2023年10月15日</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">出生体重</div>
+                        <div class="col-span-2" id="profile-baby-weight">3.5kg</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">出生身高</div>
+                        <div class="col-span-2" id="profile-baby-height">50cm</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最新数据 -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 card-shadow">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fa fa-line-chart text-green-500 mr-2"></i>
+                    最新数据
+                </h3>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">测量日期</div>
+                        <div class="col-span-2">2024年3月8日</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">当前体重</div>
+                        <div class="col-span-2">7.8kg</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">当前身高</div>
+                        <div class="col-span-2">65cm</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">头围</div>
+                        <div class="col-span-2">42cm</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 font-medium text-dark/70">出牙数</div>
+                        <div class="col-span-2">2颗</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 成长曲线 -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 mb-12 card-shadow">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold flex items-center">
+                    <i class="fa fa-area-chart text-purple mr-2"></i>
+                    成长曲线
+                </h3>
+                <div class="flex gap-2">
+                    <button class="growth-btn active px-3 py-1 rounded-full text-sm bg-purple/10 text-purple"
+                        data-type="weight">体重</button>
+                    <button class="growth-btn px-3 py-1 rounded-full text-sm bg-gray-100 text-dark/60"
+                        data-type="height">身高</button>
+                    <button class="growth-btn px-3 py-1 rounded-full text-sm bg-gray-100 text-dark/60"
+                        data-type="head">头围</button>
+                </div>
+            </div>
+            <div class="h-80">
+                <canvas id="growth-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- 成长里程碑时间线 -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 card-shadow">
+            <h3 class="text-xl font-bold mb-6 flex items-center">
+                <i class="fa fa-flag text-yellow-500 mr-2"></i>
+                成长里程碑
+            </h3>
+            <div class="relative">
+                <!-- 时间线 -->
+                <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+
+                <!-- 里程碑项目 -->
+                <div class="relative pl-12 pb-8 last:pb-0">
+                    <div
+                        class="absolute left-0 w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500">
+                        <i class="fa fa-child"></i>
+                    </div>
+                    <div class="font-medium text-lg">学会翻身</div>
+                    <div class="text-dark/50 text-sm mb-2">2023年12月20日 (2个月5天)</div>
+                    <p class="text-dark/70">宝贝今天第一次从仰卧翻成俯卧，虽然还有点费力，但已经能独立完成这个动作了！</p>
+                </div>
+
+                <div class="relative pl-12 pb-8 last:pb-0">
+                    <div
+                        class="absolute left-0 w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500">
+                        <i class="fa fa-comment"></i>
+                    </div>
+                    <div class="font-medium text-lg">第一次叫妈妈</div>
+                    <div class="text-dark/50 text-sm mb-2">2024年1月15日 (3个月)</div>
+                    <p class="text-dark/70">今天宝贝在哭闹时清晰地发出了"妈妈"的音节，虽然知道这可能只是无意识的发音，但还是让我激动得流泪。</p>
+                </div>
+
+                <div class="relative pl-12 pb-8 last:pb-0">
+                    <div
+                        class="absolute left-0 w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500">
+                        <i class="fa fa-moon-o"></i>
+                    </div>
+                    <div class="font-medium text-lg">睡整觉</div>
+                    <div class="text-dark/50 text-sm mb-2">2024年2月28日 (4个月13天)</div>
+                    <p class="text-dark/70">宝贝昨晚从晚上9点一直睡到早上6点，中间没有醒来哭闹，这是他第一次睡整觉，让我也终于睡了个好觉！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新增底部图标 -->
+        <div class="flex justify-center items-center py-6 text-blue/60">
+            <i class="fa fa-heartbeat text-2xl"></i>
+            <span class="ml-2 text-sm">记录每一刻成长的美好时光</span>
+        </div>
+    </main>
+
+    <!-- 编辑宝贝信息模态框 -->
+    <div id="modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="modal-title" class="text-xl font-bold">编辑宝贝信息</h3>
+                    <button id="close-modal" class="text-dark/50 hover:text-dark">
+                        <i class="fa fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- 宝贝信息表单 -->
+                <div id="modal-content">
+                    <div class="space-y-6">
+                        <div class="text-center">
+                            <div
+                                class="w-24 h-24 rounded-full bg-blue/10 flex items-center justify-center overflow-hidden border-4 border-white shadow-lg mx-auto mb-4">
+                                <i class="fa fa-baby text-4xl text-blue"></i>
+                            </div>
+                            <button class="text-sm text-blue hover:text-blue/80">更换头像</button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1">姓名</label>
+                                <input type="text" id="baby-name"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue focus:border-blue transition-custom"
+                                    value="小宝贝">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1">性别</label>
+                                <select id="baby-gender"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue focus:border-blue transition-custom">
+                                    <option value="boy" selected>男孩</option>
+                                    <option value="girl">女孩</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-dark/70 mb-1">出生日期</label>
+                            <input type="date" id="baby-birthday"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue focus:border-blue transition-custom"
+                                value="2023-10-15">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1">出生体重 (kg)</label>
+                                <input type="number" step="0.01" id="baby-birth-weight"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue focus:border-blue transition-custom"
+                                    value="3.5">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1">出生身高 (cm)</label>
+                                <input type="number" id="baby-birth-height"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue focus:border-blue transition-custom"
+                                    value="50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end space-x-3">
+                    <button id="cancel-modal"
+                        class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-custom">
+                        取消
+                    </button>
+                    <button id="save-modal"
+                        class="px-4 py-2 bg-blue text-white rounded-lg hover:bg-blue/90 transition-custom">
+                        保存信息
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

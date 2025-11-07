@@ -1,0 +1,37 @@
+{
+  "name": "baby-growth-tracker",
+  "version": "1.0.0",
+  "description": "婴儿成长记录软件，帮助家长记录宝宝成长过程中的每一个珍贵瞬间。",
+  "main": "index.html",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "keywords": [
+    "婴儿记录",
+    "成长记录",
+    "育儿",
+    "家庭",
+    "相册"
+  ],
+  "author": "宝贝成长记团队",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "vite": "^4.5.0"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.3.2",
+    "font-awesome": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "."
+}
